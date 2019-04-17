@@ -12,7 +12,7 @@ services:
       - 3306
     remoteAccess: false
     deployTo:
-      - wpdocker
+      - mainwp
 
   - name: cache
     type: redis
@@ -21,7 +21,7 @@ services:
     ports:
       - 6379
     deployTo:
-      - wpdocker
+      - mainwp
 
   - name: blog
     type: docker
@@ -69,7 +69,7 @@ services:
         WP_ADMIN_EMAIL: Email of administrator account
     volumesUID: 33
     deployTo:
-      - wpdocker
+      - mainwp
 
   - name: balancer
     type: haproxy
@@ -82,7 +82,7 @@ services:
       - name: blog
         sticky: true
     deployTo:
-      - wpdocker
+      - mainwp
 
   - name: adminer
     type: docker
@@ -94,10 +94,10 @@ services:
     env:
       ADMINER_DEFAULT_SERVER: "{{=service('db').getMasterAlias()}}"
     deployTo:
-      - wpdocker
+      - mainwp
 
 hosts:
-  - name: wpdocker
+  - name: mainwp
     requirements:
       cores: 1
       memory: 2
